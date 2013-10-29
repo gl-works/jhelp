@@ -56,3 +56,5 @@ Quantile Estimator
 ---------------------
 
 A simple & fast quantile estimation utility for arbitrary any data size. It was orginally designed to estimate [HBase](http://hbase.apache.org/) row-key distribution. Ideally, it can be used with any [Dividable](https://github.com/gl-works/jhelp/blob/master/src/main/java/jhelp/math/quantile/Estimator.java) types.
+
+Check how to use [Estimator](https://github.com/gl-works/jhelp/blob/master/src/main/java/jhelp/math/quantile/Estimator.java)
