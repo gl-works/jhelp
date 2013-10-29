@@ -51,3 +51,8 @@ In the following we show how to encoding java object containing JTS [Geometry](h
      List<Geometry> geometries = ...;
      String json = context.encode(geometries);
      ...
+
+Quantile Estimator
+---------------------
+
+A simple & fast quantile estimation utility for arbitrary any data size. It was orginally designed to estimate [HBase](http://hbase.apache.org/) row-key distribution. Ideally, it can be used with any [Dividable](https://github.com/gl-works/jhelp/blob/master/src/main/java/jhelp/math/quantile/Estimator.java) types.
