@@ -18,7 +18,7 @@ public class Triple<X, Y, Z> {
         this.third = third;
     }
 
-    static public <X, Y, Z> Triple of(X first, Y second, Z third) {
+    static public <X, Y, Z> Triple<X, Y, Z> of(X first, Y second, Z third) {
         return new Triple(first, second, third);
     }
 }

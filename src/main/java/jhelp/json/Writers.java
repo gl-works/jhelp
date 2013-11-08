@@ -1,6 +1,5 @@
 package jhelp.json;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import jhelp.lang.Pair;
 import jhelp.lang.Triple;
 import jhelp.lang.Tuple;
@@ -11,198 +10,214 @@ import java.util.Map;
 
 public class Writers {
 
-    static public final Writer<Map<Object, Object>> MAP = new Writer<Map<Object, Object>>() {
-        @Override
-        public void write(Context context, JsonGenerator jg, Map<Object,Object> value) throws IOException {
-            jg.writeStartObject();
-            for (Map.Entry<Object, Object> e : value.entrySet()) {
-                jg.writeFieldName(e.getKey().toString());
-                context.writeObject(e.getValue(), jg);
-            }
-            jg.writeEndObject();
-        }
-    };
+    static public final Writer<Map> MAP =
+            new Writer<Map>() {
+                @Override
+                public void write(JSONFactory.Session session,
+                                  Map value) throws IOException {
+                    session.startObject();
+                    for (Object e : value.entrySet()) {
+                        session.writeFieldName(((Map.Entry)e).getKey().toString());
+                        session.writeObject(((Map.Entry)e).getValue());
+                    }
+                    session.endObject();
+                }
+            };
+
+    static public final Writer<Map<? extends Object, ? extends Object>> MAP_REVERSED =
+            new Writer<Map<? extends Object, ? extends Object>>() {
+                @Override
+                public void write(JSONFactory.Session session,
+                                  Map<? extends Object,? extends Object> value) throws IOException {
+                    session.startObject();
+                    for (Map.Entry<?, ?> e : value.entrySet()) {
+                        session.writeFieldName(e.getValue().toString());
+                        session.writeObject(e.getKey());
+                    }
+                    session.endObject();
+                }
+            };
 
     static public final Writer<Iterable> ITERABLE = new Writer<Iterable>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Iterable value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, Iterable value) throws IOException {
+            session.startArray();
             for (Object item : (Iterable)value) {
-                context.writeObject(item, jg);
+                session.writeObject(item);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public final Writer<Object[]> ARRAY = new Writer<Object[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Object[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, Object[] value) throws IOException {
+            session.startArray();
             for (Object item : value) {
-                context.writeObject(item, jg);
+                session.writeObject(item);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public final Writer<Byte> BYTE = new Writer<Byte>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Byte value) throws IOException {
-            jg.writeNumber(value);
+        public void write(JSONFactory.Session session, Byte value) throws IOException {
+            session.writeNumber(value);
         }
     };
 
     static public final Writer<Short> SHORT = new Writer<Short>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Short value) throws IOException {
-            jg.writeNumber(value);
+        public void write(JSONFactory.Session session, Short value) throws IOException {
+            session.writeNumber(value);
         }
     };
 
     static public final Writer<Integer> INTEGER = new Writer<Integer>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Integer value) throws IOException {
-            jg.writeNumber(value);
+        public void write(JSONFactory.Session session, Integer value) throws IOException {
+            session.writeNumber(value);
         }
     };
 
     static public final Writer<Long> LONG = new Writer<Long>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Long value) throws IOException {
-            jg.writeNumber(value);
+        public void write(JSONFactory.Session session, Long value) throws IOException {
+            session.writeNumber(value);
         }
     };
 
     static public final Writer<Float> FLOAT = new Writer<Float>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Float value) throws IOException {
-            jg.writeNumber(value);
+        public void write(JSONFactory.Session session, Float value) throws IOException {
+            session.writeNumber(value);
         }
     };
 
     static public final Writer<Double> DOUBLE = new Writer<Double>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Double value) throws IOException {
-            jg.writeNumber(value);
+        public void write(JSONFactory.Session session, Double value) throws IOException {
+            session.writeNumber(value);
         }
     };
 
     static public final Writer<byte[]> ARRAY_BYTE = new Writer<byte[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, byte[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, byte[] value) throws IOException {
+            session.startArray();
             for (byte v : value) {
-                jg.writeNumber(v);
+                session.writeNumber(v);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public final Writer<short[]> ARRAY_SHORT = new Writer<short[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, short[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, short[] value) throws IOException {
+            session.startArray();
             for (short v : value) {
-                jg.writeNumber(v);
+                session.writeNumber(v);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public final Writer<int[]> ARRAY_INT = new Writer<int[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, int[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, int[] value) throws IOException {
+            session.startArray();
             for (int v : value) {
-                jg.writeNumber(v);
+                session.writeNumber(v);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public final Writer<long[]> ARRAY_LONG = new Writer<long[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, long[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session sessioin, long[] value) throws IOException {
+            sessioin.startArray();
             for (long v : value) {
-                jg.writeNumber(v);
+                sessioin.writeNumber(v);
             }
-            jg.writeEndArray();
+            sessioin.endArray();
         }
     };
 
     static public final Writer<float[]> ARRAY_FLOAT = new Writer<float[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, float[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, float[] value) throws IOException {
+            session.startArray();
             for (float v : value) {
-                jg.writeNumber(v);
+                session.writeNumber(v);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public final Writer<double[]> ARRAY_DOUBLE = new Writer<double[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, double[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, double[] value) throws IOException {
+            session.startArray();
             for (double v : value) {
-                jg.writeNumber(v);
+                session.writeNumber(v);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public final Writer<boolean[]> ARRAY_BOOLEAN = new Writer<boolean[]>() {
         @Override
-        public void write(Context context, JsonGenerator jg, boolean[] value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, boolean[] value) throws IOException {
+            session.startArray();
             for (boolean v : value) {
-                jg.writeBoolean(v);
+                session.writeBoolean(v);
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
     static public <T> Writer<T> named(final String name, final Writer<T> writer) {
         return new Writer<T>() {
             @Override
-            public void write(Context context, JsonGenerator g, T value) throws IOException {
-                g.writeFieldName(name);
-                writer.write(context, g, value);
+            public void write(JSONFactory.Session session, T value) throws IOException {
+                session.writeFieldName(name);
+                writer.write(session, value);
             }
         };
     }
 
     static public Writer<Pair> PAIR = new Writer<Pair>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Pair value) throws IOException {
-            jg.writeStartArray();
-            context.writeObject(value.first, jg);
-            context.writeObject(value.second, jg);
-            jg.writeEndArray();
+        public void write(JSONFactory.Session session, Pair value) throws IOException {
+            session.startArray();
+            session.writeObject(value.first);
+            session.writeObject(value.second);
+            session.endArray();
         }
     };
 
     static public Writer<Triple> TRIPLE = new Writer<Triple>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Triple value) throws IOException {
-            jg.writeStartArray();
-            context.writeObject(value.first, jg);
-            context.writeObject(value.second, jg);
-            context.writeObject(value.third, jg);
-            jg.writeEndArray();
+        public void write(JSONFactory.Session session, Triple value) throws IOException {
+            session.startArray();
+            session.writeObject(value.first);
+            session.writeObject(value.second);
+            session.writeObject(value.third);
+            session.endArray();
         }
     };
 
     static public Writer<Tuple> TUPLE = new Writer<Tuple>() {
         @Override
-        public void write(Context context, JsonGenerator jg, Tuple value) throws IOException {
-            jg.writeStartArray();
+        public void write(JSONFactory.Session session, Tuple value) throws IOException {
+            session.startArray();
             for (int i=0; i<value.size(); i++) {
-                context.writeObject(value.get(i), jg);
+                session.writeObject(value.get(i));
             }
-            jg.writeEndArray();
+            session.endArray();
         }
     };
 
@@ -227,6 +242,9 @@ public class Writers {
         define(Pair.class, PAIR);
         define(Triple.class, TRIPLE);
         define(Tuple.class, TUPLE);
+
+        define(Iterable.class, ITERABLE);
+        define(Map.class, MAP);
     }
     static private <T> void define(Class<T> cls, Writer<T> writer) {
         PREDIFINED.put(cls, writer);
