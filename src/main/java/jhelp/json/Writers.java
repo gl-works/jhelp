@@ -221,6 +221,20 @@ public class Writers {
         }
     };
 
+    static public Writer<String> STRING = new Writer<String>() {
+        @Override
+        public void write(JSONFactory.Session session, String value) throws IOException {
+            session.writeString(value);
+        }
+    };
+
+    static public Writer<Boolean> BOOLEAN = new Writer<Boolean>() {
+        @Override
+        public void write(JSONFactory.Session session, Boolean value) throws IOException {
+            session.writeBoolean(value);
+        }
+    };
+
     static public final Map<Class, Writer> PREDIFINED = new HashMap<Class, Writer>();
     static {
         define(Byte.class, BYTE);
@@ -236,12 +250,16 @@ public class Writers {
         define(long[].class, ARRAY_LONG);
         define(float[].class, ARRAY_FLOAT);
         define(double[].class, ARRAY_DOUBLE);
+        define(boolean[].class, ARRAY_BOOLEAN);
 
         define(Object[].class, ARRAY);
 
         define(Pair.class, PAIR);
         define(Triple.class, TRIPLE);
         define(Tuple.class, TUPLE);
+
+        define(String.class, STRING);
+        define(Boolean.class, BOOLEAN);
 
         define(Iterable.class, ITERABLE);
         define(Map.class, MAP);
